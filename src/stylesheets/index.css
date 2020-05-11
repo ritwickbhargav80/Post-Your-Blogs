@@ -44,6 +44,12 @@
   padding: 0em;
 }
 
+.card-title {
+  margin-top: 1.8em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
 .card-text {
   padding: 0.8rem;
 }

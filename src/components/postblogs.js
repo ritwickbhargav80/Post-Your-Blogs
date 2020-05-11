@@ -6,11 +6,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 class PostBlogs extends Component {
   state = {
     myName: "Ritwick Bhargav",
+    heading: "",
     value: "",
     blogs: [
       {
         id: 1,
         name: "Ritwick Bhargav",
+        heading: "Introduction to React!",
         value: "Hello Everyone, This is my first blog. Hope you like it. Let's discuss about React and how's it different from other technologies. So, React makes it painless to create interactive User Interfaces. You can design simple views for each state in your application, and React will render the exact components as the data changes.",
         isLike: true,
         likeCount: 50,
@@ -25,6 +27,7 @@ class PostBlogs extends Component {
       {
         id: 2,
         name: "Aakash Goel",
+        heading: "React Native!",
         value: "Let's deep dive into the React Native knowledge pool. First of all, let's see what React Native is? So, React Native helps to create Android as well as iOS native apps using React. One of the feature that I like the most is fast rendering i.e., see your output as soon as you save your code.",
         isLike: false,
         likeCount: 10,
@@ -44,23 +47,28 @@ class PostBlogs extends Component {
     ],
   };
 
+  headingInput = (event) => {
+    this.setState({ heading: event.target.value });
+  };
+
   textFieldInput = (event) => {
     this.setState({ value: event.target.value });
   };
 
   handleDisabled() {
-    if (this.state.value === "") return true;
+    if (this.state.heading === "" || this.state.value === "") return true;
     return false;
   }
 
   handleBlogs() {
     let maxId = 0;
-    this.state.blogs.forEach((thought) => {
-      if (thought.id > maxId) maxId = thought.id;
+    this.state.blogs.forEach((blog) => {
+      if (blog.id > maxId) maxId = blog.id;
     });
-    let tempThought = {
+    let tempBlog = {
       id: maxId + 1,
       name: this.state.myName,
+      heading: this.state.heading,
       value: this.state.value,
       isLike: false,
       likeCount: 0,
@@ -72,32 +80,33 @@ class PostBlogs extends Component {
         },
       ],
     };
-    this.setState({ blogs: [...this.state.blogs, tempThought] });
-    document.getElementById("postIt").value = "";
-    const value = "";
-    this.setState({ value });
+    this.setState({ blogs: [...this.state.blogs, tempBlog] });
+    document.getElementById("postIt-1").value = "";
+    document.getElementById("postIt-2").value = "";
+    const heading = "", value = "";
+    this.setState({ heading, value });
   }
 
-  deleteIcon = (thought, comment) => {
-    return thought.name === this.state.myName ||
+  deleteIcon = (blog, comment) => {
+    return blog.name === this.state.myName ||
       comment.name === this.state.myName ? (
         <FontAwesomeIcon
           icon={faTrashAlt}
           className="delete text-danger"
-          onClick={() => this.handleDelete(thought, comment)}
+          onClick={() => this.handleDelete(blog, comment)}
         />
       ) : (
         <React.Fragment />
       );
   };
 
-  handleDelete = (thought, comment) => {
+  handleDelete = (blog, comment) => {
     let blogs;
     if (!comment.id) {
-      blogs = this.state.blogs.filter((thought1) => thought1 !== thought);
+      blogs = this.state.blogs.filter((blog1) => blog1 !== blog);
     } else {
       const i = this.state.blogs.findIndex(
-        (thought1) => thought1 === thought
+        (blog1) => blog1 === blog
       );
       const newComments = this.state.blogs[i].comment.filter(
         (comment1) => comment1 !== comment
@@ -108,21 +117,21 @@ class PostBlogs extends Component {
     this.setState({ blogs });
   };
 
-  handleLike = (thought) => {
+  handleLike = (blog) => {
     let blogs = [...this.state.blogs];
-    const index = blogs.indexOf(thought);
-    thought.isLike = !thought.isLike;
-    if (thought.isLike) thought.likeCount += 1;
-    else thought.likeCount -= 1;
-    blogs[index] = thought;
+    const index = blogs.indexOf(blog);
+    blog.isLike = !blog.isLike;
+    if (blog.isLike) blog.likeCount += 1;
+    else blog.likeCount -= 1;
+    blogs[index] = blog;
     this.setState({ blogs });
   };
 
-  handleComment = (thought) => {
+  handleComment = (blog) => {
     let blogs = [...this.state.blogs];
-    const i = blogs.indexOf(thought);
-    const j = thought.comment.findIndex((x) => x.id === 1);
-    let tempComment = thought.comment.find((x) => x.id === 1);
+    const i = blogs.indexOf(blog);
+    const j = blog.comment.findIndex((x) => x.id === 1);
+    let tempComment = blog.comment.find((x) => x.id === 1);
     let maxId = 0;
     blogs[i].comment.forEach((commentObject) => {
       if (commentObject.id > maxId) maxId = commentObject.id;
@@ -133,16 +142,16 @@ class PostBlogs extends Component {
     ];
     blogs[i].comment = blogs1;
     this.setState({ blogs });
-    document.getElementById(thought.id).value = "";
+    document.getElementById(blog.id).value = "";
     blogs[i].comment[j].name = "";
     blogs[i].comment[j].message = "";
   };
 
-  handleChange = (thought, event) => {
+  handleChange = (blog, event) => {
     let blogs = [...this.state.blogs];
-    const i = blogs.indexOf(thought);
-    let j = thought.comment.findIndex((x) => x.id === 1);
-    let updatedComment = thought.comment.find((x) => x.id === 1);
+    const i = blogs.indexOf(blog);
+    let j = blog.comment.findIndex((x) => x.id === 1);
+    let updatedComment = blog.comment.find((x) => x.id === 1);
     updatedComment.name = this.state.myName;
     updatedComment.message = event.target.value;
     if (event.target.value === "") updatedComment.name = "";
@@ -150,21 +159,21 @@ class PostBlogs extends Component {
     this.setState({ blogs });
   };
 
-  handleCommentDisabled = (thought) => {
-    let tempComment = thought.comment.find((x) => x.id === 1);
+  handleCommentDisabled = (blog) => {
+    let tempComment = blog.comment.find((x) => x.id === 1);
     if (tempComment.message === "") return true;
     return false;
   };
 
-  printComments = (thought) => {
-    const commentArray = thought.comment.filter((comment) => comment.id !== 1);
+  printComments = (blog) => {
+    const commentArray = blog.comment.filter((comment) => comment.id !== 1);
     if (commentArray.length !== 0)
       return commentArray.map((comment) => (
         <React.Fragment key={comment.id}>
           <div className="card">
             <div className="card-header font-weight-bold">
               {comment.name}
-              {this.deleteIcon(thought, comment)}
+              {this.deleteIcon(blog, comment)}
             </div>
             <div className="card-body">
               <p className="card-text">{comment.message}</p>
@@ -183,9 +192,10 @@ class PostBlogs extends Component {
           This is a <span className="bold">React</span> based frontend only textual blog system.
         </p>
         <h2 className="m-2">Post Your Blogs Here:</h2>
+        <input id="postIt-1" type="text" className="form-control" placeholder="Mention your title here..." aria-label="Username" aria-describedby="basic-addon1" onChange={this.headingInput} />
         <div className="input-group text-area">
           <textarea
-            id="postIt"
+            id="postIt-2"
             rows="5"
             className="form-control"
             aria-label="With textarea"
@@ -202,53 +212,54 @@ class PostBlogs extends Component {
         </button>
         <br />
         <br />
-        {this.state.blogs.map((thought) => (
-          <React.Fragment key={thought.id}>
+        {this.state.blogs.map((blog) => (
+          <React.Fragment key={blog.id}>
             <div className="card">
               <div className="card-header">
-                {thought.name}
-                {this.deleteIcon(thought, {})}
+                {blog.name}
+                {this.deleteIcon(blog, {})}
               </div>
               <div className="card-body">
-                <p className="card-text">{thought.value}</p>
+                <h5 className="card-title">{blog.heading}</h5>
+                <p className="card-text">{blog.value}</p>
               </div>
               <div className="card-footer">
                 <div>
-                  {thought.isLike ? (
+                  {blog.isLike ? (
                     <FontAwesomeIcon
                       icon={faLaughWink}
                       className="d-inline laughWinkFace"
-                      onClick={() => this.handleLike(thought)}
+                      onClick={() => this.handleLike(blog)}
                     />
                   ) : (
                       <FontAwesomeIcon
                         icon={faLaugh}
                         className="d-inline laughFace"
-                        onClick={() => this.handleLike(thought)}
+                        onClick={() => this.handleLike(blog)}
                       />
                     )}
                   <span className="d-inline badge badge-pill badge-secondary">
-                    {thought.likeCount}
+                    {blog.likeCount}
                   </span>
                   <div className="d-inline innerDiv">
                     <input
-                      id={thought.id}
+                      id={blog.id}
                       type="text"
                       className="d-inline form-control m-2 commentBox"
                       aria-label="Text input with checkbox"
                       placeholder="Post your comments here..."
-                      onChange={(e) => this.handleChange(thought, e)}
+                      onChange={(e) => this.handleChange(blog, e)}
                     />
                     <button
                       className="btn btn-sm btn-primary"
-                      disabled={this.handleCommentDisabled(thought)}
-                      onClick={() => this.handleComment(thought)}
+                      disabled={this.handleCommentDisabled(blog)}
+                      onClick={() => this.handleComment(blog)}
                     >
                       Comment
                     </button>
                   </div>
                 </div>
-                <div className="m-2">{this.printComments(thought)}</div>
+                <div className="m-2">{this.printComments(blog)}</div>
               </div>
             </div>
             <br />
