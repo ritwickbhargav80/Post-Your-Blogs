@@ -1,17 +1,26 @@
 <p align="left">
 	<img width="240" src="https://raw.githubusercontent.com/dsckiet/resources/master/dsckiet-logo.png" />
-	<h2 align="left"> < ADD PROJECT TITLE > </h2>
-	<h4 align="left"> < ADD PROJECT DESCRIPTION > <h4>
+	<h2 align="left"> Post Your Blogs [Frontend Only] </h2>
+	<h4 align="left"> This is a basic React application to manage textual blogs. <h4>
 </p>
 
----
-[![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=for-the-badge&logo=appveyor)](INSERT_LINK_FOR_DOCS_HERE) 
-  [![UI ](https://img.shields.io/badge/User%20Interface-Link%20to%20UI-orange?style=for-the-badge&logo=appveyor)](INSERT_UI_LINK_HERE)
+--- 
+  [![UI ](https://img.shields.io/badge/User%20Interface-Link%20to%20UI-orange?style=for-the-badge&logo=appveyor)](https://post-your-blogs.netlify.app)
 
 
 ## Functionalities
-- [ ]  < ADD FUNCTIONALITY >
-- [ ]  < ADD FUNCTIONALITY >
+
+**Blogs:**
+
+- [x] `Post`
+- [x] `Like`
+- [x] `Comment`
+- [x] `Delete`
+
+**Comment:**
+
+- [ ] `Like`
+- [ ] `Comment`
 
 <br>
 
@@ -19,25 +28,24 @@
 ## Instructions to run
 
 * Pre-requisites:
-	-  < add pre-requisite >
-	-  < add pre-requisite >
+	-  NPM
 
 * Directions to setup/install
 ```bash
-< insert code >
+npm i
 ```
 
 * Directions to execute
 
 ```bash
-< insert code >
+npm start
 ```
 
 <br>
 
 ## Contributors
 
-* [ < ADD YOUR NAME > ](ADD_PROFILE_URL_HERE)
+* [Ritwick Bhargav](https://github.com/ritwickbhargav80)
 
 
 

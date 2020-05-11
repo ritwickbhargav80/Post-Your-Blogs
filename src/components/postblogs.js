@@ -11,7 +11,7 @@ class PostBlogs extends Component {
       {
         id: 1,
         name: "Ritwick Bhargav",
-        value: "My first thought!",
+        value: "Hello Everyone, This is my first blog. Hope you like it. Let's discuss about React and how's it different from other technologies. So, React makes it painless to create interactive User Interfaces. You can design simple views for each state in your application, and React will render the exact components as the data changes.",
         isLike: true,
         likeCount: 50,
         comment: [
@@ -25,7 +25,7 @@ class PostBlogs extends Component {
       {
         id: 2,
         name: "Aakash Goel",
-        value: "Some thought!",
+        value: "Let's deep dive into the React Native knowledge pool. First of all, let's see what React Native is? So, React Native helps to create Android as well as iOS native apps using React. One of the feature that I like the most is fast rendering i.e., see your output as soon as you save your code.",
         isLike: false,
         likeCount: 10,
         comment: [
@@ -37,13 +37,8 @@ class PostBlogs extends Component {
           {
             id: 2,
             name: "Ritwick Bhargav",
-            message: "Cool",
-          },
-          {
-            id: 3,
-            name: "Ritwick Bhargav",
-            message: "Cool",
-          },
+            message: "Nice information!",
+          }
         ],
       },
     ],
