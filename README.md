@@ -4,9 +4,9 @@
 	<h4 align="left"> This is a basic React application to manage textual blogs. <h4>
 </p>
 
---- 
-  [![UI ](https://img.shields.io/badge/User%20Interface-Link%20to%20UI-orange?style=for-the-badge&logo=appveyor)](https://post-your-blogs.netlify.app)
+---
 
+[![UI ](https://img.shields.io/badge/User%20Interface-Link%20to%20UI-orange?style=for-the-badge&logo=appveyor)](https://post-your-blogs.netlify.app)
 
 ## Functionalities
 
@@ -19,23 +19,21 @@
 
 **Comment:**
 
-- [ ] `Like`
-- [ ] `Comment`
+- [x] `Like`
 
 <br>
 
-
 ## Instructions to run
 
-* Pre-requisites:
-	-  NPM
+- Pre-requisites: - NPM
 
-* Directions to setup/install
+- Directions to setup/install
+
 ```bash
 npm i
 ```
 
-* Directions to execute
+- Directions to execute
 
 ```bash
 npm start
@@ -45,9 +43,7 @@ npm start
 
 ## Contributors
 
-* [Ritwick Bhargav](https://github.com/ritwickbhargav80)
-
-
+- [Ritwick Bhargav](https://github.com/ritwickbhargav80)
 
 <br>
 <br>

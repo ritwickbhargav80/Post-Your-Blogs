@@ -15,6 +15,7 @@ class PostBlogs extends Component {
         heading: "Introduction to React!",
         value: "Hello Everyone, This is my first blog. Hope you like it. Let's discuss about React and how's it different from other technologies. So, React makes it painless to create interactive User Interfaces. You can design simple views for each state in your application, and React will render the exact components as the data changes.",
         isLike: true,
+        isNew: false,
         likeCount: 50,
         comment: [
           {
@@ -30,6 +31,7 @@ class PostBlogs extends Component {
         heading: "React Native!",
         value: "Let's deep dive into the React Native knowledge pool. First of all, let's see what React Native is? So, React Native helps to create Android as well as iOS native apps using React. One of the feature that I like the most is fast rendering i.e., see your output as soon as you save your code.",
         isLike: false,
+        isNew: false,
         likeCount: 10,
         comment: [
           {
@@ -41,6 +43,8 @@ class PostBlogs extends Component {
             id: 2,
             name: "Ritwick Bhargav",
             message: "Nice information!",
+            isLike: false,
+            likeCount: 5
           }
         ],
       },
@@ -71,6 +75,7 @@ class PostBlogs extends Component {
       heading: this.state.heading,
       value: this.state.value,
       isLike: false,
+      isNew: true,
       likeCount: 0,
       comment: [
         {
@@ -98,6 +103,12 @@ class PostBlogs extends Component {
       ) : (
         <React.Fragment />
       );
+  };
+
+  printMessage = (name, message) => {
+    name = name.toLowerCase();
+    name = "@" + name.replace(/\s/g, '_') + " ";
+    return <p><span className="bold">{name}</span>{message}</p>;
   };
 
   handleDelete = (blog, comment) => {
@@ -136,11 +147,11 @@ class PostBlogs extends Component {
     blogs[i].comment.forEach((commentObject) => {
       if (commentObject.id > maxId) maxId = commentObject.id;
     });
-    const blogs1 = [
+    const comment = [
       ...blogs[i].comment,
-      { id: maxId + 1, name: tempComment.name, message: tempComment.message },
+      { id: maxId + 1, name: tempComment.name, message: tempComment.message, isLike: false, likeCount: 0 },
     ];
-    blogs[i].comment = blogs1;
+    blogs[i].comment = comment;
     this.setState({ blogs });
     document.getElementById(blog.id).value = "";
     blogs[i].comment[j].name = "";
@@ -176,7 +187,27 @@ class PostBlogs extends Component {
               {this.deleteIcon(blog, comment)}
             </div>
             <div className="card-body">
-              <p className="card-text">{comment.message}</p>
+              <p className="card-text">{this.printMessage(blog.name, comment.message)}</p>
+            </div>
+            <div className="card-footer">
+              <div>
+                {comment.isLike ? (
+                  <FontAwesomeIcon
+                    icon={faLaughWink}
+                    className="d-inline laughWinkFace"
+                    onClick={() => this.handleLike(comment)}
+                  />
+                ) : (
+                    <FontAwesomeIcon
+                      icon={faLaugh}
+                      className="d-inline laughFace"
+                      onClick={() => this.handleLike(comment)}
+                    />
+                  )}
+                <span className="d-inline badge badge-pill badge-secondary">
+                  {comment.likeCount}
+                </span>
+              </div>
             </div>
           </div>
           <br />
@@ -216,7 +247,7 @@ class PostBlogs extends Component {
           <React.Fragment key={blog.id}>
             <div className="card">
               <div className="card-header">
-                {blog.name}
+                {blog.name} {blog.isNew ? <span className="badge badge-primary new-badge">New</span> : <React.Fragment />}
                 {this.deleteIcon(blog, {})}
               </div>
               <div className="card-body">
@@ -251,7 +282,7 @@ class PostBlogs extends Component {
                       onChange={(e) => this.handleChange(blog, e)}
                     />
                     <button
-                      className="btn btn-sm btn-primary"
+                      className="btn btn-sm btn-primary comment"
                       disabled={this.handleCommentDisabled(blog)}
                       onClick={() => this.handleComment(blog)}
                     >
